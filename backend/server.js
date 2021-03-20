@@ -2,10 +2,15 @@
 import express from "express";
 import dotenv from "dotenv";
 
+// import DataBase
+import connectDB from "./config/db.js";
+
 // bring the data
 import products from "./data/products.js";
 
 dotenv.config();
+
+connectDB();
 
 // initialise app
 const app = express();

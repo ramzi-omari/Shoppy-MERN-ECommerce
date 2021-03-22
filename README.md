@@ -9,6 +9,7 @@
 - npm i mongoose
 - npm i colors
 - npm i bcryptjs // used to encrypt passwords
+- npm i express-async-handler // a middleware for handling exceptions inside of async express routes (the avoid try catch every route)
 
 ## Frontend additional setup:
 

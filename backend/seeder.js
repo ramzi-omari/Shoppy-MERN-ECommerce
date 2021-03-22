@@ -56,6 +56,7 @@ const destroyData = async () => {
 };
 
 // script node backend/seeder -d  // to use seeder // -d: destroy
+//  npm run data:import    to import data to mongodb
 if (process.argv[2] === "-d") {
   destroyData();
 } else {

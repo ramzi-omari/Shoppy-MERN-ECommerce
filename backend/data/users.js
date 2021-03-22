@@ -1,5 +1,5 @@
 import bcrypt from "bcryptjs";
-
+// encrypted password
 const users = [
   {
     name: "Admin User",

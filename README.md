@@ -20,3 +20,8 @@ install HTTP library to make request to the backend
 - npm i axios
 - add a proxy to connect to the backend server
 - npm i redux react-redux redux-thunk redux-devtools-extension
+
+## Postman
+
+**Saving the Token in Postman** : to test the access with tokens we add a environment variable which takes the token when we login automatically
+![postman](https://i.ibb.co/HdVWLRF/postmantoken.png)

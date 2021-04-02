@@ -9,6 +9,7 @@ import connectDB from "./config/db.js"
 
 // import routes
 import productRoutes from "./routes/productRoutes.js"
+import userRoutes from "./routes/userRoutes.js"
 
 dotenv.config()
 
@@ -17,13 +18,17 @@ connectDB()
 // initialise app
 const app = express()
 
+// a middleware for authentication EndPoint in order to let req.body to parse
+app.use(express.json())
+
 //firest route: Get request
 app.get("/", (req, res) => {
   res.send("API is running")
 })
 
-// link to route
+// link to routes
 app.use("/api/products", productRoutes)
+app.use("/api/users", userRoutes)
 
 // custom error middleware
 app.use(notFound)

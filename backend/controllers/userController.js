@@ -30,4 +30,25 @@ const authUser = asyncHandler(async (req, res) => {
   }
 })
 
-export { authUser }
+// @desc   Get user profile
+// @route  Get /api/users/profile
+// @access Private  // protected access
+const getUserProfile = asyncHandler(async (req, res) => {
+  // get the user
+  // req.user can be used to get the data from any PROTECTED Route
+  const user = await User.findById(req.user._id)
+
+  if (user) {
+    res.json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      idAdmin: user.isAdmin,
+    })
+  } else {
+    res.status(404)
+    throw new Error("User not found")
+  }
+})
+
+export { authUser, getUserProfile }

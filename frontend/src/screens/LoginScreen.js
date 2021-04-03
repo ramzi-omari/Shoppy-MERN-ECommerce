@@ -7,22 +7,39 @@ import Loader from "../components/Loader"
 import { login } from "../actions/userAtions"
 import FormContainer from "../components/FormContainer"
 
-const LoginScreen = ({ location }) => {
+const LoginScreen = ({ location, history }) => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+
+  const dispatch = useDispatch()
+
+  const userLogin = useSelector((state) => state.userLogin)
+  // distructor (the payload)userLogin properties
+  const { loading, error, userInfo } = userLogin
 
   // to get URL query string and take the right of = sign
   const redirect = location.search ? location.search.split("=")[1] : "/"
 
+  useEffect(() => {
+    // we should not be able to go to Login Screen if we're already logged in
+    // if userInfo exist = we're already logged in
+    if (userInfo) {
+      history.push(redirect)
+    }
+  }, [history, userInfo, redirect])
+
   const submitHandler = (e) => {
     e.preventDefault()
-    // dispatch Login
+    dispatch(login(email, password))
   }
 
   return (
     <FormContainer>
-      <h1>Signe In</h1>
-      <Form on submit={submitHandler}>
+      <h1>Sign In</h1>
+      {/* if there's an error or if loading */}
+      {error && <Message variant="danger">{error}</Message>}
+      {loading && <Loader />}
+      <Form onSubmit={submitHandler}>
         <Form.Group controlId="email">
           <Form.Label> Email Adress</Form.Label>
           <Form.Control

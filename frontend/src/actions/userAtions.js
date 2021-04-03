@@ -1,5 +1,8 @@
 import axios from "axios"
 import {
+  USER_DETAILS_FAIL,
+  USER_DETAILS_REQUEST,
+  USER_DETAILS_SUCCESS,
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
@@ -88,6 +91,46 @@ export const register = (name, email, password) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: USER_REGISTER_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
+  }
+}
+
+// add getState to get the Token
+export const getUserDetails = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: USER_DETAILS_REQUEST,
+    })
+
+    // distructor to get the token from getstate.userlogin.userinfo.token
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      // to pass the token with protected routes
+      // send in the headers content type of application/json
+      headers: {
+        "Content-Type": "application/json",
+        // we pass our tokens as authorization
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    // make request
+    const { data } = await axios.get(`/api/users/${id}`, config)
+
+    dispatch({
+      type: USER_DETAILS_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: USER_DETAILS_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

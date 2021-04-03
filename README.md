@@ -21,6 +21,11 @@ install HTTP library to make request to the backend
 - add a proxy to connect to the backend server
 - npm i redux react-redux redux-thunk redux-devtools-extension
 
+### FrontEnd notes:
+
+- to call an Action in the front we use Dispatch
+- to bring something in (datas) we use Selector
+
 ## Postman
 
 **Saving the Token in Postman** : to test the access with tokens we add a environment variable which takes the token when we login automatically
